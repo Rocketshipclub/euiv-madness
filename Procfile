@@ -1,1 +1,1 @@
-web: npm run install --prefix frontend/ && npm run build --prefix frontend/ && npm run install --prefix backend/ && npm run start --prefix backend/
+web: npm install --prefix frontend/ && npm run build --prefix frontend/ && npm install --prefix backend/ && npm run start --prefix backend/
