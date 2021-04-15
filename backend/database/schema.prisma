@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./database.db"
+}
+
+model achievements {
+  id                 Int                  @id @default(autoincrement())
+  name               String
+  summary            String?
+  isGeneric          Int?
+  AchievementCountry AchievementCountry[]
+}
+
+model countries {
+  name               String
+  id                 Int                  @id @default(autoincrement())
+  continent          Int
+  AchievementCountry AchievementCountry[]
+}
+
+model ideagroups {
+  id    Int    @id @default(autoincrement())
+  group String
+  name  String
+}
+
+model AchievementCountry {
+  achievementId Int
+  countryId     Int
+  achievements  achievements @relation(fields: [achievementId], references: [id])
+  countries     countries    @relation(fields: [countryId], references: [id])
+
+  @@id([achievementId, countryId])
+}

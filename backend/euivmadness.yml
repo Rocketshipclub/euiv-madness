@@ -1,0 +1,160 @@
+openapi: 3.0.0
+info:
+  description: EU IV Madness API
+  version: 1.0.0
+  title: apispec
+paths:
+  /country:
+    get:
+      tags:
+        - country
+      summary: Get a single country
+      description: ''
+      operationId: getCountry
+      responses:
+        '200':
+          description: country succesfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Country'
+        '404':
+          description: country not found
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+  /achievement:
+    get:
+      tags:
+        - achievement
+      summary: Get a single achievement
+      description: ''
+      operationId: getAchievement
+      responses:
+        '200':
+          description: achievement successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Achievement'
+        '404':
+          description: achievement not found
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+  /challenge:
+    post:
+      summary: post a new challenge
+      operationId: createChallenge
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/ChallengeBody'
+      responses:
+        '201':
+          description: challenge created
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Challenge'
+components:
+  schemas:
+    ChallengeBody:
+      title: A challenge body
+      required:
+        - continents
+        - ideaGroupCount
+        - achievementCount
+      properties:
+        continents:
+            type: array
+            items:
+              type: integer
+        ideaGroupCount:
+          type: integer
+        achievementCount:
+          type: integer
+    Country:
+      title: A country
+      description: A Country
+      type: object
+      required:
+        - id
+        - name
+        - continent
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        continent:
+          type: integer
+          format: int64
+    Achievement:
+      title: An achievement
+      description: An achievement
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        summary: 
+          type: string
+    IdeaGroup:
+      title: An idea group
+      description: An idea group
+      type: object
+      required:
+        - id
+        - name
+        - group
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        group:
+          type: string
+    Challenge:
+      title: A challenge
+      description: A challenge
+      type: object
+      required:
+        - achievements
+        - ideaGroups
+        - country
+      properties:
+        achievements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Achievement'
+        ideaGroups: 
+          type: array
+          items:
+            $ref: '#/components/schemas/IdeaGroup'
+        country:
+          $ref: '#/components/schemas/Country'
+    IdeaGroupCategory:
+      title: Categories for Idea Groups
+      type: string
+      enum:
+        - Administrative
+        - Diplomatic
+        - Military
+        
