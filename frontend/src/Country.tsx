@@ -10,7 +10,7 @@ export const Country: FunctionComponent<CountryProps> = ({name, flag}) => {
         <div style={{display:"flex", flexDirection:"column", justifyContent:"center"}}>
             <h1>{name}</h1>
             <div style={{width:"250px"}}>
-                <img src={'/flags/'+flag+'.png'} style={{height:"100%", width:"100%"}}/>
+                <img src={'/flags/'+flag+'.png'} style={{height:"100%", width:"100%"} } alt="Flag"/>
             </div>
         </div>
     );

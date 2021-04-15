@@ -1,6 +1,7 @@
 import express from 'express';
 import * as bodyParser from 'body-parser';
 import cors from 'cors';
+import path from 'path';
 import { countryRoutes } from '../routes/countries';
 import { achievementsRoutes } from '../routes/achievements';
 import { ideagroupRoutes } from '../routes/ideagroups';
@@ -15,6 +16,7 @@ app.use('/api/achievements', achievementsRoutes);
 app.use('/api/ideagroups', ideagroupRoutes);
 app.use('/api/challenges', challengeRoutes);
 
-app.get('/', (req, res, next) => res.send('Hello World!'));
+app.use(express.static(path.join("../frontend", 'build')))
+app.get('*', (req, res, next) => res.sendFile(path.join('frontend','build','index.html'), {root: '../'}));
 
 export { app };
